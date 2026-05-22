@@ -1,24 +1,22 @@
-[app]
+name: Android Build
 
-title = Pixel War
-package.name = pixelwar
-package.domain = org.pixelwar
+on:
+  push:
 
-source.dir = .
-source.include_exts = py,png,jpg,kv,atlas
+jobs:
+  build:
+    runs-on: ubuntu-latest
 
-version = 1.0
+    steps:
+    - uses: actions/checkout@v3
 
-requirements = python3,kivy
+    - name: Build with Buildozer
+      uses: ArtemSBulgakov/buildozer-action@v1
+      with:
+        command: buildozer android debug
 
-orientation = portrait
-
-fullscreen = 1
-
-android.permissions = INTERNET
-
-[buildozer]
-
-log_level = 2
-
-warn_on_root = 1
+    - name: Upload APK
+      uses: actions/upload-artifact@v3
+      with:
+        name: game-apk
+        path: bin/*.apk
