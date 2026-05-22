@@ -1,20 +1,24 @@
-name: Android Build
+[app]
 
-on:
-  push:
-    branches:
-      - main
+title = Pixel War
+package.name = pixelwar
+package.domain = org.pixelwar
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
+source.dir = .
+source.include_exts = py,png,jpg,kv,atlas
 
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v3
+version = 1.0
 
-    - name: Build with Buildozer
-      uses: ArtemSBulgakov/buildozer-action@v1
+requirements = python3,kivy
 
-      with:
-        command: buildozer android debug
+orientation = portrait
+
+fullscreen = 1
+
+android.permissions = INTERNET
+
+[buildozer]
+
+log_level = 2
+
+warn_on_root = 1
